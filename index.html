@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Playground</title>
+  </head>
+  <body>
+    <div>
+      Hello, I am <span id="my-id"></span><br>
+      <button class="send-message" data-message="hi">Say "hi"</button><br>
+      <button class="send-message" data-message="self-destruct">go boom</button><br>
+    </div>
+    <hr>
+    <div id="things"></div>
+
+<script type="text/javascript">
+var id = Math.floor(Math.random()*16777215) .toString(16)
+document.querySelector('#my-id').innerText = id
+
+var things = document.querySelector('#things')
+
+var w = new SharedWorker('/worker.js', 'playground-worker-1')
+w.port.onmessage = function(e) {
+  things.textContent = e.data + ' (' + (new Date()) + ')'
+}
+
+function handleClick(el) {
+  el.onclick = function() {
+    w.port.postMessage([id, el.dataset.message])
+  }
+}
+
+for (var e of document.querySelectorAll('.send-message')) {
+  handleClick(e)
+}
+</script>
+
+  </body>
+</html>
