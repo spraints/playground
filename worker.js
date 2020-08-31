@@ -2,10 +2,9 @@ var sw = self
 
 function handle(session, port, data) {
   if (data[1] == 'self-destruct') {
-    setTimeout(100, function() {
-      console.log('exited')
-      sw.close()
-    })
+    console.log('exiting')
+    sw.close()
+    return
   }
 
   console.log('number of subscriptions was ' + session.subscriptions.size)
