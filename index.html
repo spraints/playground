@@ -18,7 +18,7 @@ document.querySelector('#my-id').innerText = id
 
 var things = document.querySelector('#things')
 
-var w = new SharedWorker('/playground/worker.js?3', 'playground-worker-3')
+var w = new SharedWorker('/playground/worker.js?4', 'playground-worker-4')
 w.port.onmessage = function(e) {
   things.textContent = e.data + ' (' + (new Date()) + ')'
 }
